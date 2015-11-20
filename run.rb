@@ -6,14 +6,18 @@ class GameWindow < Gosu::Window
 		super 480, 480
 		@planets = []
 
-		File.open("planets.txt", "r", '\r').each_with_index do |line, index| 
+		file = File.open("planets.txt", "r", '\r')
+		
+		file.each_with_index do |line, index| 
 			if index == 0 
 				bodies = line.to_i
 			elsif index == 1
 				universe = line.to_i
 			else
 	      x, y, x_vel, y_vel, mass, image = line.strip.split(' ') 
-	      @planets = Satelite.new(:x => x, :y => y, :x_vel => x_vel, :y_vel => y_vel, :mass => mass, :image => image, :universe => universe)
+	      @planets = Satelite.new(:x => x, :y => y, :x_vel => x_vel,
+	      	:y_vel => y_vel, :mass => mass, :image => image,
+	      	:universe => universe)
 	      @planets.save
 	    end
 	  end

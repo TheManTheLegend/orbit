@@ -1,5 +1,7 @@
 require "gosu"
+# require_relative "run"
 
+# attr_accessor :x, :y, :x_vel, :y_vel, :mass, :image, :universe
 class Satelite
 	def initialize(x_pos, y_pos, x_vel, y_vel, mass, image, universe)
 		@univers = universe
