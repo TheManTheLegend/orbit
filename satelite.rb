@@ -3,20 +3,23 @@ require "gosu"
 
 # attr_accessor :x, :y, :x_vel, :y_vel, :mass, :image, :universe
 class Satelite
-	def initialize(x_pos, y_pos, x_vel, y_vel, mass, image, universe)
+	def initialize(x, y, x_vel, y_vel, mass, image, universe, center_x, center_y, center_mass)
 		@universe = universe.to_i
-		@x = (x_pos / universe)*@width.to_f + @width.to_f/2
-		@y = (y_pos /universe)*@height.to_f + @height.to_f/2
-		@x_vel = (x_vel/universe)*@width.to_f + @width.to_f/2
-		@y_vel = (y_vel/universe)*@height.to_f + @height.to_f/2
+		@x = (x / universe) * @width.to_f + @width.to_f/2
+		@y = (y /universe) * @height.to_f + @height.to_f/2
+		@x_vel = (x_vel/universe) * @width.to_f + @width.to_f/2
+		@y_vel = (y_vel/universe) * @height.to_f + @height.to_f/2
 		@image = Gosu::Image.new("images/#{image}")
 		@mass = mass
+		@center_mass = center_mass
+	  @center_x = center_x
+	  @center_y = center_y
 		
 	end
 
 	def move
-		distance_squared = (@x^2) + (@y^2)
-		force =  6.674e-11 * (@center * @mass) / distance_squared
+		distance_squared = (@x * @x) + (@y * @y)
+		force =  6.674e-11 * (@center_mass * @mass) / distance_squared
 		x_force = (@x/(@y + @x)) * force
 		y_force = (@y/(@y + @x)) * force
 		x_accel = x_force / @mass
