@@ -19,7 +19,7 @@ class GameWindow < Gosu::Window
 
 			else
 	      x, y, x_vel, y_vel, mass, image = line.strip.split(' ') 
-	      if x_vel == 0 && y_vel == 0
+	      if image == "sun.png"
 	      	@center_mass = mass
 	      	@center_x = x
 	      	@center_y = y
@@ -27,13 +27,7 @@ class GameWindow < Gosu::Window
 	      @planets.push(Satelite.new(x.to_f, y.to_f, x_vel.to_f, y_vel.to_f, mass.to_f, image, @universe.to_f, @center_x.to_f, @center_y.to_f, @center_mass.to_f))
 	      
 	    end
-	    (0..@planets.length).each do |index|
-	    	if @planets[index] = "nil"
-	    		puts "found nil"
-	    		@planets[index].pop
-	    		@planets[index].push(0)
-	    	end
-	    end
+	    
 	  end
 
 		@background_image = Gosu::Image.new("images/starmap.jpg", :tileable => true)
@@ -41,13 +35,14 @@ class GameWindow < Gosu::Window
 	end
 
 	def update
-		(0..@planets.length).each do |index|
+		(0..@planets.length-1).each do |index|
 			@planets[index].move
 		end
 	end
 
 	def draw
-		(0..@planets.length).each do |index|
+
+		(0..@planets.length-1).each do |index|
 			@planets[index].draw
 		end
 		
